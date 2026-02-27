@@ -1,0 +1,1 @@
+<?php define('SITE_NAME','JOSMA SpA'); define('TO_EMAIL','contacto@josma.cl'); define('FROM_EMAIL','no-reply@josma.cl');

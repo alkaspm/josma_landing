@@ -1,0 +1,1 @@
+v4: Navbar con logo responsive, srcset WebP + PNG fallback, lazy load, SEO (OG + JSON-LD), robots.txt y sitemap.xml.
