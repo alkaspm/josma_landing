@@ -16,6 +16,8 @@ if (!empty($_POST['website'] ?? '')) {
     exit;
 }
 
+$company = trim($_POST['company'] ?? '');
+$rut = trim($_POST['rut'] ?? '');
 $name = trim($_POST['name'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $phone = trim($_POST['phone'] ?? '');
@@ -23,7 +25,7 @@ $message = trim($_POST['message'] ?? '');
 $consentRaw = $_POST['consent'] ?? null;
 $consent = isset($consentRaw) && in_array(strtolower((string)$consentRaw), ['1', 'on', 'true', 'yes'], true);
 
-if ($name === '' || $email === '' || $message === '') {
+if ($company === '' || $name === '' || $email === '' || $message === '') {
     echo json_encode(['success' => false, 'message' => 'Por favor completa los campos obligatorios.']);
     exit;
 }
@@ -39,14 +41,16 @@ if (!$consent) {
 }
 
 $clean = fn($v) => htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$company = $clean($company);
+$rut = $clean($rut);
 $name = $clean($name);
 $email = $clean($email);
 $phone = $clean($phone);
 $message = $clean($message);
 
 $to = TO_EMAIL;
-$subject = 'Nuevo contacto desde ' . SITE_NAME;
-$body = "Nombre: {$name}\nCorreo: {$email}\nTeléfono: {$phone}\n\nMensaje:\n{$message}\n\nIP: " . $_SERVER['REMOTE_ADDR'];
+$subject = 'Nuevo Requerimiento B2B desde ' . SITE_NAME;
+$body = "Empresa: {$company}\nRUT: {$rut}\nContacto: {$name}\nCorreo: {$email}\nTeléfono: {$phone}\n\nRequerimiento:\n{$message}\n\nIP: " . $_SERVER['REMOTE_ADDR'];
 $headers = [
     'MIME-Version: 1.0',
     'Content-type: text/plain; charset=utf-8',
