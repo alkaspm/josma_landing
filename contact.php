@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-define('TO_EMAIL', 'contacto@josma.cl');
+define('TO_EMAIL', 'cotizaciones@josma.cl');
 define('FROM_EMAIL', 'no-reply@josma.cl');
 define('SITE_NAME', 'JOSMA SpA');
 
