@@ -1,8 +1,12 @@
 :root {
     --primary: #0f172a;
     --primary-light: #1e293b;
-    --accent: #2563eb;
-    --accent-hover: #1d4ed8;
+    --accent: #059669;
+    /* Emerald 600 - Eco-friendly feel */
+    --accent-hover: #047857;
+    /* Emerald 700 */
+    --secondary-accent: #2563eb;
+    /* Blue 600 - Clinical/Professional feel */
     --dark: #020617;
     --light: #f8fafc;
     --body: #334155;
@@ -103,7 +107,7 @@ h6 {
     --bs-btn-hover-border-color: var(--accent-hover);
     --bs-btn-active-bg: var(--accent-hover);
     --bs-btn-active-border-color: var(--accent-hover);
-    --bs-btn-focus-shadow-rgb: 37, 99, 235;
+    --bs-btn-focus-shadow-rgb: 5, 150, 105;
 }
 
 .text-accent {
@@ -137,8 +141,8 @@ h6 {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: radial-gradient(circle at 80% 0%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 20% 100%, rgba(15, 23, 42, 0.4) 0%, transparent 50%),
+    background: radial-gradient(circle at 80% 0%, rgba(5, 150, 105, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 20% 100%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
         linear-gradient(135deg, var(--primary) 0%, #020617 100%);
 }
 
@@ -200,7 +204,7 @@ h6 {
 
 .card:hover {
     box-shadow: var(--shadow-lg) !important;
-    border-color: rgba(37, 99, 235, 0.2) !important;
+    border-color: rgba(5, 150, 105, 0.3) !important;
     transform: translateY(-5px);
 }
 
@@ -233,12 +237,12 @@ footer {
 .form-control:focus,
 .form-select:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+    box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15);
     background-color: var(--surface);
 }
 
 .btn:focus {
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.25);
 }
 
 img.rounded-4.shadow {
