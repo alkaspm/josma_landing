@@ -21,3 +21,22 @@ document.querySelectorAll('a.btn-primary').forEach(btn => {
         }
     });
 });
+
+// Dynamic Hero Backgrounds
+document.addEventListener('DOMContentLoaded', () => {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    // Array of industrial backgrounds
+    const backgrounds = [
+        'assets/img/hero-b2b.png',  // Port logistics
+        'assets/img/hero-bg-2.png', // Eco-industrial plant (from mockups)
+        'assets/img/hero-bg-3.png'  // Heavy duty machinery (from mockups)
+    ];
+
+    // Pick a random background
+    const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+
+    // Apply styling. Must include the dark gradient overlay to ensure text legibility.
+    hero.style.backgroundImage = `linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 0.85) 100%), url('${randomBg}')`;
+});
