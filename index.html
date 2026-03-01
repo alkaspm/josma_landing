@@ -190,11 +190,20 @@
   </section>
 
   <!-- Services Section -->
-  <section id="servicios" class="py-6 bg-light">
-    <div class="container">
+  <section id="servicios" class="py-6 position-relative z-1 overflow-hidden"
+    style="border-top: 4px solid var(--accent); border-bottom: 4px solid var(--accent);">
+    <!-- Parallax Background Slideshow -->
+    <div class="hero-slideshow">
+      <div class="hero-slide active" style="background-image: url('assets/img/hero/port.png')"></div>
+      <div class="hero-slide" style="background-image: url('assets/img/hero/mining.png')"></div>
+      <div class="hero-slide" style="background-image: url('assets/img/hero/industry.png')"></div>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="container position-relative z-1">
       <div class="text-center max-w-3xl mx-auto mb-5 pb-3">
-        <span class="text-accent fw-bold text-uppercase tracking-wider small">Especialidades B2B</span>
-        <h2 class="display-6 fw-bold mt-2">Saneamiento y Control Específico por Industria</h2>
+        <span class="fw-bold text-uppercase tracking-wider small" style="color: #2dd4bf;">Especialidades B2B</span>
+        <h2 class="display-6 fw-bold mt-2 text-white">Saneamiento y Control Específico por Industria</h2>
       </div>
 
       <div class="row g-4">
