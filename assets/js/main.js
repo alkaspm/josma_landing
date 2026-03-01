@@ -22,4 +22,51 @@ document.querySelectorAll('a.btn-primary').forEach(btn => {
     });
 });
 
-// Dynamic Hero Backgrounds removed due to mockup image conflicts. Reverting to CSS default (hero-b2b.png).
+// RUT Auto-formatter
+document.addEventListener('DOMContentLoaded', () => {
+    const rutInput = document.getElementById('rut');
+    if (!rutInput) return;
+
+    rutInput.addEventListener('input', function (e) {
+        // Remove everything except numbers and 'k'/'K'
+        let value = this.value.replace(/[^0-9kK]/g, '').toUpperCase();
+
+        if (value.length > 0) {
+            // Separate body from dv
+            const body = value.slice(0, -1);
+            const dv = value.slice(-1);
+
+            // Format body with dots
+            let formattedBody = '';
+            for (let i = body.length - 1, j = 0; i >= 0; i--, j++) {
+                formattedBody = body.charAt(i) + formattedBody;
+                if (j === 2 && i !== 0) {
+                    formattedBody = '.' + formattedBody;
+                    j = -1;
+                }
+            }
+
+            // Reattach dv if it exists
+            if (body.length > 0) {
+                this.value = formattedBody + '-' + dv;
+            } else {
+                this.value = dv;
+            }
+        } else {
+            this.value = '';
+        }
+    });
+});
+
+// Hero Background Slideshow Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('#heroSlideshow .hero-slide');
+    if (slides.length === 0) return;
+
+    let currentSlide = 0;
+    setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }, 5000); // Crossfade image every 5 seconds
+});
