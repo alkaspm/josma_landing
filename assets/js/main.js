@@ -58,15 +58,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Hero Background Slideshow Logic
+// Hero Background Slideshow Logic (Syncs all instances)
 document.addEventListener('DOMContentLoaded', () => {
-    const slides = document.querySelectorAll('#heroSlideshow .hero-slide');
-    if (slides.length === 0) return;
+    const slideshows = document.querySelectorAll('.hero-slideshow');
+    if (slideshows.length === 0) return;
+
+    // Assume all slideshows have the same number of slides
+    const numSlides = slideshows[0].querySelectorAll('.hero-slide').length;
+    if (numSlides === 0) return;
 
     let currentSlide = 0;
     setInterval(() => {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add('active');
+        slideshows.forEach(show => {
+            const slides = show.querySelectorAll('.hero-slide');
+            if (slides[currentSlide]) slides[currentSlide].classList.remove('active');
+        });
+
+        currentSlide = (currentSlide + 1) % numSlides;
+
+        slideshows.forEach(show => {
+            const slides = show.querySelectorAll('.hero-slide');
+            if (slides[currentSlide]) slides[currentSlide].classList.add('active');
+        });
     }, 5000); // Crossfade image every 5 seconds
 });
