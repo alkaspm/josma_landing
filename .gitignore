@@ -1,0 +1,37 @@
+# ============================================
+# JOSMA SpA Landing — .gitignore
+# ============================================
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+._*
+
+# --- Configuración sensible ---
+config.php
+*.env
+.env.*
+
+# --- Logs ---
+*.log
+error_log
+
+# --- Editores / IDE ---
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-*
+
+# --- Backups ---
+*.bak
+*.backup
+*.old
+*.orig
+
+# --- Archivos temporales ---
+tmp/
+temp/
+cache/

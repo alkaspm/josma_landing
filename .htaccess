@@ -1,0 +1,94 @@
+# ============================================
+# JOSMA SpA Landing — Apache Security Headers
+# ============================================
+
+# --- Force HTTPS ---
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# --- Redirect non-www to www ---
+RewriteCond %{HTTP_HOST} ^josma\.cl$ [NC]
+RewriteRule ^ https://www.josma.cl%{REQUEST_URI} [L,R=301]
+
+# --- Security Headers ---
+<IfModule mod_headers.c>
+    # HSTS — Fuerza HTTPS por 1 año, incluye subdominios
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    
+    # Previene clickjacking — Solo permite iframes del mismo origen
+    Header always set X-Frame-Options "SAMEORIGIN"
+    
+    # Previene MIME type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # Previene ataques XSS reflejado (legacy, complementa CSP)
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Control de Referrer — No expone URL completa a terceros
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Deshabilita APIs del navegador innecesarias
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
+    
+    # Content Security Policy — Whitelist de orígenes confiables
+    Header always set Content-Security-Policy "\
+        default-src 'self'; \
+        script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-inline'; \
+        style-src 'self' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com 'unsafe-inline'; \
+        font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; \
+        img-src 'self' data:; \
+        connect-src 'self'; \
+        frame-ancestors 'self'; \
+        base-uri 'self'; \
+        form-action 'self'; \
+        object-src 'none'; \
+        upgrade-insecure-requests"
+    
+    # Previene que el sitio se use como referrer de tipo
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Cross-Origin-Resource-Policy "same-origin"
+</IfModule>
+
+# --- Proteger archivos sensibles ---
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|bak|config\.php)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# --- Deshabilitar listado de directorios ---
+Options -Indexes
+
+# --- Deshabilitar Server Signature ---
+ServerSignature Off
+
+# --- Comprimir respuestas (Performance) ---
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE application/xml application/xhtml+xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --- Cache de assets estáticos (Performance) ---
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-font-woff "access plus 1 year"
+    ExpiresByType application/x-font-woff2 "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# --- Prevenir acceso a .git ---
+RedirectMatch 404 /\.git
